@@ -1,5 +1,4 @@
 from requests import *
-
 class DataQuery:
     def query(ticker, function, interval):
         apiKey = "VVYFBPRGDKHX0K93"
