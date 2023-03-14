@@ -7,3 +7,6 @@ class DataQuery:
         r = get(url)
         data = r.json()
         return data
+    
+    #Testing commit
+    
