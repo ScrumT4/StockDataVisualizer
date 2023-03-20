@@ -1,6 +1,6 @@
 from requests import *
 
-class DataQuery:
+class DataQuery:  
     def stocksymbol():
         try:
             print("Stock Data Visulaizer")
