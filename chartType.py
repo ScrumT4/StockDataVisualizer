@@ -1,4 +1,5 @@
 import pygal
+import lxml
 
 class DataQuery:
     def chartType(self):
