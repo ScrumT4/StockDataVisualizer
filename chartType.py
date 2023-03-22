@@ -17,10 +17,13 @@ class DataQuery:
         # Create graph type
         if self.chart_type == "1":
             chart = pygal.Bar()
+            chart.render_in_browser()
         elif self.chart_type == "2":
             chart = pygal.Line()
+            chart.render_in_browser()
         else:
             print("Invalid chart type entered. Defaulting to line chart.")
             chart = pygal.Line()
+            chart.render_in_browser()
 
 
