@@ -44,3 +44,34 @@ def TimeSeriesMenu():
     print('3. Weekly')
     print('4. Monthly')
  
+def askTimeSeries(stockSymbol):
+    stock = stockSymbol
+    while(True):
+
+        try:
+            timeSeries = int(input('\nWhat time series option would you like: Options (1-4): '))
+            apiKey = 'VVYFBPRGDKHX0K93'
+            
+            if timeSeries == 1:
+                url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + stock + '&interval=60min&apikey=' + apiKey
+                
+            elif timeSeries == 2:
+                url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + stock + '&apikey=' + apiKey
+                
+            elif timeSeries == 3:
+                url = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=' + stock + '&apikey=' + apiKey
+                
+            elif timeSeries == 4:
+                url = 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=' + stock + '&apikey=' + apiKey
+                
+            elif timeSeries not in range(1,5): 
+                print("You can select options 1 through 4 only.")
+                continue
+        except ValueError: 
+            print("You can select options 1 through 4 only.")
+            continue
+        else:
+            break
+    r = requests.get(url)
+    data = r.json()
+    return data, timeSeries
