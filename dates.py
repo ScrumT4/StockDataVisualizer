@@ -1,4 +1,3 @@
-
 def checkDates():
     format = "%Y-%m-%d"
     while(True):
@@ -11,3 +10,9 @@ def checkDates():
                 print("End date must be after start date")
                 continue
             break
+        except ValueError as e:
+            print("Incorrect start date format, should be YYYY-MM-DD")
+            continue
+        else:
+            break
+    return startDate, endDate
