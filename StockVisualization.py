@@ -188,3 +188,23 @@ def generateGraph(stockSymbol, chartType, timeSeries, data, startDate, endDate):
         line.add('Low', lowFloat)
         line.add('Close', closeFloat)
         line.render_in_browser()
+        
+def main():
+    repeat = True
+    while(repeat):
+        while(True):
+            try:
+                stockSymbol = input('\nEnter stock symbol: ')
+                chartType = askCharts()
+                data, timeSeries = askTimeSeries(stockSymbol)
+                startDate, endDate = checkDates()
+                generateGraph(stockSymbol, chartType, timeSeries, data, startDate, endDate)
+            except ValueError:
+                print("ERROR: Invalid Option!")
+                continue
+            else:
+                 break
+        more_stocks = input("Would you like to view more stock data? (y/n): ")
+        if (more_stocks != "y"):
+            repeat = False
+main()
