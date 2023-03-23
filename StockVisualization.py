@@ -94,3 +94,97 @@ def checkDates():
         else:
             break
     return startDate, endDate
+
+def generateGraph(stockSymbol, chartType, timeSeries, data, startDate, endDate):
+    format2 = "%Y-%m-%d %H:%M:%S"
+    format = "%Y-%m-%d"
+    high = []
+    low =[]
+    close =[]
+    open = []
+    dateList = []
+    stock = stockSymbol
+    chart = chartType
+    timeS = timeSeries
+    sd = startDate
+    ed = endDate
+    datetime.strptime(sd, format)
+    datetime.strptime(ed, format)
+    dataList = data
+    
+    if timeS == 1:
+        for date in dataList['Time Series (60min)']:
+            datetime.strptime(date, format2)
+            if date > ed:
+                continue 
+            if date <= sd:
+                break
+            dateList.append(date)
+            open.append(dataList['Time Series (60min)'][date]['1. open'])
+            high.append(dataList['Time Series (60min)'][date]['2. high'])
+            low.append(dataList['Time Series (60min)'][date]['3. low'])
+            close.append(dataList['Time Series (60min)'][date]['4. close'])
+
+    if timeS == 2:
+        for date in dataList['Time Series (Daily)']:
+            datetime.strptime(date, format)
+            if date > ed:
+                continue 
+            if date <= sd:
+                break
+            dateList.append(date)
+            open.append(dataList['Time Series (Daily)'][date]['1. open'])
+            high.append(dataList['Time Series (Daily)'][date]['2. high'])
+            low.append(dataList['Time Series (Daily)'][date]['3. low'])
+            close.append(dataList['Time Series (Daily)'][date]['4. close'])
+
+    if timeS == 3:
+        for date in dataList['Weekly Time Series']:
+            datetime.strptime(date, format)
+            if date > ed:
+                continue 
+            if date <= sd:
+                break
+            dateList.append(date)
+            open.append(dataList['Weekly Time Series'][date]['1. open'])
+            high.append(dataList['Weekly Time Series'][date]['2. high'])
+            low.append(dataList['Weekly Time Series'][date]['3. low'])
+            close.append(dataList['Weekly Time Series'][date]['4. close'])
+            
+    if timeS == 4:
+        for date in dataList['Monthly Time Series']:
+            datetime.strptime(date, format)
+            if date > ed:
+                continue 
+            if date <= sd:
+                break
+            dateList.append(date)
+            open.append(dataList['Monthly Time Series'][date]['1. open'])
+            high.append(dataList['Monthly Time Series'][date]['2. high'])
+            low.append(dataList['Monthly Time Series'][date]['3. low'])
+            close.append(dataList['Monthly Time Series'][date]['4. close'])
+
+    openFloat = [float(item) for item in open]
+    highFloat = [float(item) for item in high]
+    lowFloat = [float(item) for item in low]
+    closeFloat = [float(item) for item in close]
+
+    if chart == 1:
+        bar = pygal.Bar(x_label_rotation=90)
+        bar.title = stock
+        bar.x_labels = map(str, dateList)
+        bar.add('Open', openFloat)
+        bar.add('High', highFloat)
+        bar.add('Low', lowFloat)
+        bar.add('Close', closeFloat)
+        bar.render_in_browser()
+
+    if chart == 2:
+        line = pygal.Line(x_label_rotation=90)
+        line.title = stock
+        line.x_labels = map(str, dateList)
+        line.add('Open', openFloat)
+        line.add('High', highFloat)
+        line.add('Low', lowFloat)
+        line.add('Close', closeFloat)
+        line.render_in_browser()
